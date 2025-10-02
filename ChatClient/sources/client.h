@@ -6,7 +6,6 @@
 #include <QString>
 #include <QTcpSocket>
 #include <QMessageBox>
-//#include <QRegularExpression>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -30,27 +29,14 @@ public:
 signals:
     void connected();
     void disconnected();
-    //void addUser(QJsonObject& usrPkg);
-    //void authResponce(QJsonObject authPkg);
-    //void regResponce(QJsonObject regPkg);
     void addUserJson(QJsonObject& usrPkg);
     void authResponceJson(QJsonObject authPkg);
     void regResponceJson(QJsonObject regPkg);
-    // void updateUsrBase();
-    // void updateAMBase();
-    // void updatePMBase();
-    // void addAllMsg(QJsonObject& msgPkg);
-    // void addPerMsg(QJsonObject& msgPkg);
-    // void addAllMsgJson(QJsonObject& msgPkg);
-    // void addPerMsgJson(QJsonObject& msgPkg);
 
 public slots:
     void updPrivateClientMessages(const QString login);
-    //void sendMsgAll(const QJsonObject& msg);
     void onGetData();
     void onConnectionLost();
-    // void sendAMStatus(const QJsonObject& pkg);
-    // void sendPMStatus(const QJsonObject& pkg);
 
 private:
     void responseHandler(QJsonObject &json);
@@ -66,3 +52,4 @@ private:
 };
 
 #endif
+
