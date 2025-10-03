@@ -8,3 +8,8 @@
 <p align="center">
  <img width="600px" src="mysql.jpg" alt="qr"/>
 </p>
+
+Status пользователя: 
+0x01 - статус для нового пользователя
+0x02 - пользователь заблокирован
+0x28 - Admin
