@@ -55,6 +55,7 @@ void StartScreen::RegUser(const QString &login, const QString &pwd){
     QString hashPass = QString::fromStdString(_sha256.backToString
                                               (_sha256.digestSTD()));
     if(_server->getDatabase()->regLogin(login,hashPass)){
+        _userName = login;
         accept();
     }
 }
@@ -64,6 +65,7 @@ void StartScreen::AuthUser(const QString &login, const QString &pwd)    {
     QString hashPass = QString::fromStdString(_sha256.backToString
                                               (_sha256.digestSTD()));
     if(_server->getDatabase()->authLogin(login,hashPass)){
+        _userName = login;
         accept();
     }
 }
