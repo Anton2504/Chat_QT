@@ -95,7 +95,7 @@ void Client::usersFromServer(const QJsonObject &json){
     QVector<QString> tempUsrs;
     tempUsrs.reserve(allUsers.size());
     for (const QJsonValue &value : allUsers){
-        tempUsrs.push_back(value.toString());
+        tempUsrs.push_back(value["login"].toString());
     }
     _users.swap(tempUsrs);
 }
@@ -134,3 +134,4 @@ void Client::updPrivateClientMessages(const QString login){
     req["login"] = login;
     sendToServer(req);
 }
+
