@@ -68,10 +68,45 @@ MainWindow *MainWindow::createClient()
      }
 }
 
+ void MainWindow::sendAllMsg() {
+     QString msg = ui->messageLineEdit->text();
+     if(!msg.isEmpty()){
+         _server->getDatabase()->newAllMsg(_userName,msg);
+         ui->messageLineEdit->clear();
+     }
+ }
+
+ void MainWindow::sendPrivateMsg() {
+     QString msg = ui->messageLineEdit->text();
+     QDialog users(this);
+     users.setModal(true);
+     auto l = new QVBoxLayout(&users);
+     users.setLayout(l);
+     auto userListWgt = new QListWidget(&users);
+     l->addWidget(userListWgt);
+     auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &users);
+     l->addWidget(buttonBox);
+     const QList usersList = _server->getDatabase()->getUSers().keys();
+     for(const auto &user : usersList)
+     {
+         userListWgt->addItem(user);
+     }
+
+     userListWgt->setCurrentRow(0);
+
+     auto result = users.exec();
+
+     if(result == QDialog::Accepted &&
+         userListWgt->currentItem())
+     {
+         _server->getDatabase()->newPrivateMsg(_userName, userListWgt->currentItem()->text(),msg);
+     }
+ }
+
 void MainWindow::initConnections()
 {
-    //connect(ui->sendMessageButton,&QPushButton::clicked,this,&MainWindow::sendMsgAll);
-    //connect(ui->privateMessageSendButton,&QPushButton::clicked,this,&MainWindow::sendMsgPrivate);
+    connect(ui->sendMessageButton,&QPushButton::clicked,this,&MainWindow::sendAllMsg);
+    connect(ui->privateMessageSendButton,&QPushButton::clicked,this,&MainWindow::sendPrivateMsg);
     connect(ui->BlockUser,&QPushButton::clicked,this,&MainWindow::blockUser);
     connect(ui->UnblockUser,&QPushButton::clicked,this,&MainWindow::unblockUser);
 
