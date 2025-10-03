@@ -167,7 +167,7 @@ bool Database::newAllMsg(const QString& login, const QString& msg){
     getDbUSers();
     QSqlQuery query;
     QUuid uuidMsg = QUuid::createUuidV7();
-    query.prepare("INSERT INTO chat (uuid_chatmsg, user_uuid, text, dateime) "
+    query.prepare("INSERT INTO chat (uuid_chatmsg, user_uuid, text, datetime) "
                   "VALUES (UUID_TO_BIN(:uuid_msg), :uuid_sender, :msg, NOW())");
     query.bindValue(":uuid_msg", uuidMsg);
     query.bindValue(":uuid_sender", _users.value(login));
@@ -351,4 +351,5 @@ void Database::runDB(){
     }
     //db.close();
 }
+
 
