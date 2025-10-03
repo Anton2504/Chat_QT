@@ -66,14 +66,14 @@ bool Database::getAllMsgsQuery(){
     QSqlQuery query;
     QDateTime datetime;
     QString formattedDateTime;
-    query.prepare("select dateime, login, text from users join chat where user_uuid=uuid ORDER by dateime");
+    query.prepare("select datetime, login, text from users join chat where user_uuid=uuid ORDER by datetime");
     if(!query.exec()){
         qDebug() << "Error select login, uuid from users:" << query.lastError().text();
         return false;
     }else{
         QJsonArray msgs;
         while(query.next()){
-            datetime = query.value("dateime").toDateTime();
+            datetime = query.value("datetime").toDateTime();
             formattedDateTime = datetime.toString("yyyy-MM-dd hh:mm:ss");
             msgs.append("["+formattedDateTime+"] <"+
                         query.value("login").toString()+"> пишет: "+
@@ -351,3 +351,4 @@ void Database::runDB(){
     }
     //db.close();
 }
+
