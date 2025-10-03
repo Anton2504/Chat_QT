@@ -27,6 +27,8 @@ public slots:
 private:
     void initConnections();
     void updAllMessages();
+    void sendAllMsg();
+    void sendPrivateMsg();
 
 private:
     Ui::MainWindow *ui;
